@@ -123,11 +123,17 @@ open class TeaVMTask : DefaultTask() {
             if (classpath.length > 0) {
                 classpath.append(':')
             }
-            classpath.append(File(project.buildDir, "classes/main").path)
-            urls.add(File(project.buildDir, "classes/main").toURI().toURL())
+
+            val convention = project.convention.getPlugin(JavaPluginConvention::class.java)
+
+            val classesDirs = convention.sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).output.classesDir
+            val resDirs = convention.sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).output.resourcesDir.toString()
+
+            classpath.append(File( classesDirs.toString() ).path)
+            urls.add(File( classesDirs.toString() ).toURI().toURL())
             classpath.append(':')
-            classpath.append(File(project.buildDir, "resources/main").path)
-            urls.add(File(project.buildDir, "resources/main").toURI().toURL())
+            classpath.append(File( resDirs ).path)
+            urls.add(File( resDirs ).toURI().toURL())
 
             return URLClassLoader(urls.toArray<URL>(arrayOfNulls<URL>(urls.size)), javaClass.classLoader)
         } catch (e: MalformedURLException) {
