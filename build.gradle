@@ -19,13 +19,16 @@ group = "com.edibleday"
 
 repositories {
     mavenCentral()
+    maven {
+    	url 'https://dl.bintray.com/konsoletyper/teavm/'
+    }
 }
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    compile 'org.teavm:teavm-core:0.4.3'
-    compile 'org.teavm:teavm-tooling:0.4.3'
+    compile 'org.teavm:teavm-core:0.6.0-dev-451'
+    compile 'org.teavm:teavm-tooling:0.6.0-dev-451'
     compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.1-2'
     compile 'org.apache.maven:maven-plugin-api:3.3.3'
 }
@@ -41,6 +44,8 @@ jar {
     from "AUTHORS"
     from "LICENCE"
 }
+
+
 
 publishing {
     publications {
